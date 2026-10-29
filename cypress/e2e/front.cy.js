@@ -10,7 +10,7 @@ const pageOrders = require('../support/page_objects/pageOrders')
 
 describe('Casos de prueba de FRONT', () => {
 
-  it.only('Comprar carrito exitosamente y visualizar orden de compra', () => {
+  it('Comprar carrito exitosamente y visualizar orden de compra', () => {
 
     cy.deleteCartAPI(user.userId);
     cy.visit(url.login)
@@ -36,7 +36,17 @@ describe('Casos de prueba de FRONT', () => {
 
   })
 
-  it('Título caso de prueba 2 | Nombre Alumno', () => {
+    it.only('Agregar un libro a favoritos y visualizar el contador | Agustina Herrera', () => {
+
+    cy.deleteWishlistAPI(user.userId)
+    cy.visit(url.login)
+    cy.login(user.name, user.password)
+    cy.url().should('include', url.home)
+    pageHome.isBookVisible()
+    componentNav.validationNumberFavoritesBadge('0')
+    pageHome.clickAddToFavoritesButton()
+    componentNav.validationNumberFavoritesBadge('1')
+
   })
 
   it('Título caso de prueba 3 | Nombre Alumno', () => {

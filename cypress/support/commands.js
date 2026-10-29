@@ -51,3 +51,17 @@ Cypress.Commands.add('postCheckOutAPI', (userId, token, codeResponse) => {
         expect(response.status).to.eq(codeResponse)
     })
 })
+
+Cypress.Commands.add('deleteWishlistAPI', (userId) => {
+    cy.request({
+        method: 'DELETE',
+        url: `https://app.bookdb.online/api/wishlist/${userId}`,
+        headers: {
+            accept: 'application/json',
+            'content-type': 'application/json',
+            authorization: user.token
+        }
+    }).then((response) => {
+        expect(response.status).to.eq(200)
+    })
+})

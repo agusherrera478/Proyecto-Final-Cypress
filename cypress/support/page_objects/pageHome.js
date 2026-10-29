@@ -6,5 +6,8 @@ class pageHome {
     clickAddToCartButton() {
         cy.get('button').contains('Add to Cart').click()
     }
+    clickAddToFavoritesButton() {
+        cy.contains('app-book-card', 'Harry Potter and the Chamber of Secrets').contains('favorite').click()
+    }
 } 
 module.exports = new pageHome();
