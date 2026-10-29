@@ -1,4 +1,5 @@
 const pageLogin = require('../support/page_objects/pageLogin')
+// MODIFICADO POR AGUSTINA: se agregó esta línea para poder usar el token en deleteCartAPI
 const user = require('../fixtures/user.json') 
 
 Cypress.Commands.add('login', (name, password) => {
@@ -14,6 +15,7 @@ Cypress.Commands.add('deleteCartAPI', (userId) => {
         headers: {
             accept: 'application/json',
             'content-type': 'application/json',
+            // MODIFICADO POR AGUSTINA: antes era '' (vacío); ahora usa el token de user.json
             authorization: user.token
         }
     }).then((response) => {
@@ -51,7 +53,7 @@ Cypress.Commands.add('postCheckOutAPI', (userId, token, codeResponse) => {
         expect(response.status).to.eq(codeResponse)
     })
 })
-
+// ===== DESDE ACÁ: AGREGADO POR AGUSTINA
 Cypress.Commands.add('deleteWishlistAPI', (userId) => {
     cy.request({
         method: 'DELETE',

@@ -6,7 +6,7 @@ class pageHome {
     clickAddToCartButton() {
         cy.get('button').contains('Add to Cart').click()
     }
-    clickAddToFavoritesButton() {
+    clickAddToFavoritesButton() {// ===== AGREGADO POR AGUSTINA
         cy.contains('app-book-card', 'Harry Potter and the Chamber of Secrets').contains('favorite').click()
     }
 } 

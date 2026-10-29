@@ -1,3 +1,5 @@
+// ARCHIVO CREADO POR AGUSTINA HERRERA (no es parte de los archivos de la profe)
+// Se usa para completar el caso 1 de FE
 class pageCart {
 
     isBookTitleVisible(title) {

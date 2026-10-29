@@ -1,8 +1,9 @@
 import user from '../fixtures/user.json'
 import url from '../fixtures/url.json'
-import checkoutData from '../fixtures/checkout.json'
 const pageHome = require('../support/page_objects/pageHome')
 const componentNav = require('../support/page_objects/componentNav')
+//A PARTIR DE ACA AGREGE YO AGUSTINA: para completar el caso 1
+import checkoutData from '../fixtures/checkout.json'
 const pageCart = require('../support/page_objects/pageCart')
 const pageCheckout = require('../support/page_objects/pageCheckout')
 const pageOrders = require('../support/page_objects/pageOrders')
@@ -22,7 +23,7 @@ describe('Casos de prueba de FRONT', () => {
     cy.contains('One Item added to cart').should('be.visible')
     componentNav.validationNumberCartBadge('1')
     cy.get('.mdc-icon-button.mat-mdc-icon-button.mat-mdc-button-base.mat-unthemed').contains('shopping_cart').click()
-
+//DESDE ACÁ: COMPLETADO POR AGUSTINA (la profe dejó el caso hasta el click en el carrito)
     pageCart.isBookTitleVisible('Harry Potter and the Chamber of Secrets')
     pageCart.clickCheckoutButton()
     cy.url().should('include', url.checkout)
@@ -35,7 +36,7 @@ describe('Casos de prueba de FRONT', () => {
     pageOrders.isOrderVisible('Harry Potter and the Chamber of Secrets')
 
   })
-
+// ===== CASO PROPIO: AGUSTINA
     it.only('Agregar un libro a favoritos y visualizar el contador | Agustina Herrera', () => {
 
     cy.deleteWishlistAPI(user.userId)
