@@ -1,4 +1,5 @@
 const pageLogin = require('../support/page_objects/pageLogin')
+const user = require('../fixtures/user.json') 
 
 Cypress.Commands.add('login', (name, password) => {
     pageLogin.typeUserName(name);
@@ -13,7 +14,7 @@ Cypress.Commands.add('deleteCartAPI', (userId) => {
         headers: {
             accept: 'application/json',
             'content-type': 'application/json',
-            authorization: ''
+            authorization: user.token
         }
     }).then((response) => {
         expect(response.status).to.eq(200)

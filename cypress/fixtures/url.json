@@ -1,4 +1,6 @@
 {
   "login": "https://app.bookdb.online/login",
-  "home": "https://app.bookdb.online/"
+  "home": "https://app.bookdb.online/",
+  "checkout": "/checkout",
+  "orders": "/myorders"
 } 
