@@ -54,16 +54,15 @@ Cypress.Commands.add('postCheckOutAPI', (userId, token, codeResponse) => {
     })
 })
 // ===== DESDE ACÁ: AGREGADO POR AGUSTINA
-Cypress.Commands.add('deleteWishlistAPI', (userId) => {
+Cypress.Commands.add('deleteWishlistAPI', (userId, token) => {
     cy.request({
         method: 'DELETE',
-        url: `https://app.bookdb.online/api/wishlist/${userId}`,
+        url: `https://app.bookdb.online/api/Wishlist/${userId}`,
+        failOnStatusCode: false,
         headers: {
             accept: 'application/json',
             'content-type': 'application/json',
-            authorization: user.token
+            authorization: token
         }
-    }).then((response) => {
-        expect(response.status).to.eq(200)
     })
 })

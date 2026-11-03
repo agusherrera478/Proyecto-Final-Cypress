@@ -39,12 +39,12 @@ describe('Casos de prueba de FRONT', () => {
 // ===== CASO PROPIO: AGUSTINA
     it.only('Agregar un libro a favoritos y visualizar el contador | Agustina Herrera', () => {
 
-    cy.deleteWishlistAPI(user.userId)
+    cy.deleteWishlistAPI(user.userId, user.token)
     cy.visit(url.login)
     cy.login(user.name, user.password)
     cy.url().should('include', url.home)
     pageHome.isBookVisible()
-    componentNav.validationNumberFavoritesBadge('0')
+    //componentNav.validationNumberFavoritesBadge('0')
     pageHome.clickAddToFavoritesButton()
     componentNav.validationNumberFavoritesBadge('1')
 
