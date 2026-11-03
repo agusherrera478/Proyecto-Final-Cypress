@@ -10,11 +10,14 @@ describe('Casos de prueba de APIs', () => {
         cy.postCheckOutAPI(user.userId, '', 401)
     })
 
-    it.skip('Titulo caso de prueba API 2 | Nombre Alumno', () => {
+     // ===== CASOS PROPIOS: AGUSTINA
+    it('API | Obtener órdenes de compra exitosamente | Agustina Herrera', () => {
+        cy.getOrdersAPI(user.userId, user.token, 200)
     })
 
-    it.skip('Titulo caso de prueba API 3 | Nombre Alumno', () => {
+    it('API | Error al obtener órdenes de compra sin token | Agustina Herrera', () => {
+        cy.getOrdersAPI(user.userId, '', 401)
     })
-
+    // ===== FIN CASOS PROPIOS: AGUSTINA
 
 })
