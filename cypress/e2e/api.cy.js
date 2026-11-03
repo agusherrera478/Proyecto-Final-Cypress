@@ -1,4 +1,6 @@
 import user from '../fixtures/user.json'
+// AGREGADO POR AUGUSTO MEYER
+import book from '../fixtures/bookAugusto.json'
 
 describe('Casos de prueba de APIs', () => {
 
