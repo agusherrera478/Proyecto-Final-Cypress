@@ -95,3 +95,51 @@ Cypress.Commands.add('getOrdersAPI', (userId, token, codeResponse) => {
     })
 })
 // ===== FIN AGREGADO POR AGUSTINA
+// ===== DESDE ACÁ: AGREGADO POR AUGUSTO MEYER
+// GET /api/Book/{id}: no necesita token. Verifica el código y devuelve la respuesta
+// para que el test pueda revisar el body.
+Cypress.Commands.add('getBookAPI', (bookId, codeResponse) => {
+    cy.request({
+        method: 'GET',
+        url: `https://app.bookdb.online/api/Book/${bookId}`,
+        failOnStatusCode: false,
+        headers: {
+            accept: 'application/json'
+        }
+    }).then((response) => {
+        expect(response.status).to.eq(codeResponse)
+        return response
+    })
+})
+
+// POST /api/Login: devuelve la respuesta sin verificar nada (200 si los datos son correctos, 401 si no)
+Cypress.Commands.add('postLoginAPI', (name, password) => {
+    return cy.request({
+        method: 'POST',
+        url: 'https://app.bookdb.online/api/Login',
+        failOnStatusCode: false,
+        body: {
+            username: name,
+            password: password
+        }
+    })
+})
+
+// Elige qué cuenta de fixtures/userAugusto.json usar: prueba la principal y,
+// si el login falla, usa la de respaldo. Devuelve { name, password, token, userId }.
+Cypress.Commands.add('getAccountAugusto', () => {
+    return cy.fixture('userAugusto').then((accounts) => {
+        return cy.postLoginAPI(accounts.principal.name, accounts.principal.password).then((response) => {
+            if (response.status === 200) {
+                cy.log('Cuenta usada: principal')
+                return cy.wrap({ ...accounts.principal, token: response.body.token, userId: response.body.userDetails.userId })
+            }
+            cy.log(`La cuenta principal falló (${response.status}), se usa la de respaldo`)
+            return cy.postLoginAPI(accounts.respaldo.name, accounts.respaldo.password).then((backupResponse) => {
+                expect(backupResponse.status, 'login con la cuenta de respaldo').to.eq(200)
+                return cy.wrap({ ...accounts.respaldo, token: backupResponse.body.token, userId: backupResponse.body.userDetails.userId })
+            })
+        })
+    })
+})
+// ===== FIN AGREGADO POR AUGUSTO MEYER
