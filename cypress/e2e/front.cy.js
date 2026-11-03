@@ -7,6 +7,10 @@ import checkoutData from '../fixtures/checkout.json'
 const pageCart = require('../support/page_objects/pageCart')
 const pageCheckout = require('../support/page_objects/pageCheckout')
 const pageOrders = require('../support/page_objects/pageOrders')
+// AGREGADO POR AUGUSTO MEYER
+import book from '../fixtures/bookAugusto.json'
+const componentFilter = require('../support/page_objects/componentFilter')
+
 
 
 describe('Casos de prueba de FRONT', () => {
@@ -50,6 +54,26 @@ describe('Casos de prueba de FRONT', () => {
 
   })
 
+// ===== CASO PROPIO: AUGUSTO MEYER
+  it('Filtrar libros por categoría | Augusto Meyer', () => {
+
+    cy.getAccountAugusto().then((account) => {
+      cy.visit(url.login)
+      cy.login(account.name, account.password)
+    })
+    cy.url().should('include', url.home)
+    pageHome.isBookVisible()
+    componentFilter.clickCategory(book.filtro.category)
+    cy.url().should('include', book.filtro.url)
+    componentFilter.validationActiveCategory(book.filtro.category)
+    componentFilter.validationNumberOfBooks(book.filtro.cantidadLibros)
+    componentFilter.isBookVisible(book.filtro.libroIncluido)
+    componentFilter.isBookNotVisible(book.filtro.libroExcluido)
+
+  })
+// ===== FIN CASO PROPIO: AUGUSTO MEYER
+
+  
   it('Título caso de prueba 3 | Nombre Alumno', () => {
   })
 
