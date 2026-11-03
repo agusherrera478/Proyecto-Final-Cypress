@@ -1,0 +1,19 @@
+{
+  "existente": {
+    "bookId": 2,
+    "title": "Harry Potter and the Chamber of Secrets",
+    "author": "JKR",
+    "category": "Mystery",
+    "price": 236
+  },
+  "inexistente": {
+    "bookId": 99999
+  },
+  "filtro": {
+    "category": "Mystery",
+    "url": "/filter?category=mystery",
+    "cantidadLibros": 8,
+    "libroIncluido": "Harry Potter and the Chamber of Secrets",
+    "libroExcluido": "Harry Potter and the Prisoner of Azkaban"
+  }
+}
