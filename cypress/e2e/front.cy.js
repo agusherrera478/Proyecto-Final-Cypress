@@ -24,9 +24,9 @@ describe('Casos de prueba de FRONT', () => {
     pageHome.isBookVisible();
     componentNav.validationNumberCartBadge('0')
     pageHome.clickAddToCartButton();
-    cy.contains('One Item added to cart').should('be.visible')
+    pageHome.isAddedToCartMessageVisible()
     componentNav.validationNumberCartBadge('1')
-    cy.get('.mdc-icon-button.mat-mdc-icon-button.mat-mdc-button-base.mat-unthemed').contains('shopping_cart').click()
+    componentNav.clickCartIcon()
 //DESDE ACÁ: COMPLETADO POR AGUSTINA (la profe dejó el caso hasta el click en el carrito)
     pageCart.isBookTitleVisible('Harry Potter and the Chamber of Secrets')
     pageCart.clickCheckoutButton()
