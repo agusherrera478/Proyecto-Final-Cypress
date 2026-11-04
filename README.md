@@ -1,6 +1,6 @@
 # Proyecto Final Cypress
 
-Pruebas automatizadas con Cypress sobre https://app.bookdb.online. El detalle de cada caso está en [`docs/casos-de-prueba.md`](docs/casos-de-prueba.md).
+Pruebas automatizadas con Cypress sobre https://app.bookdb.online. El detalle de cada caso está en [`casosdeprueba.md`](casosdeprueba.md).
 
 ## Cambios sobre el código de la profe
 
