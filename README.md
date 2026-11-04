@@ -28,8 +28,8 @@ Pruebas automatizadas con Cypress sobre https://app.bookdb.online. El detalle de
 
 **Documentación**
 
-- Nuevo: `docs/casos-de-prueba.md`, con todos los casos de prueba.
-
+- Nuevo: `casosdeprueba.md`, con todos los casos de prueba.
+  
 ## Casos de prueba
 
 1. **Comprar carrito exitosamente y visualizar orden de compra** (profesora): compra un libro desde la web y verifica que la orden aparezca en "My Orders".
