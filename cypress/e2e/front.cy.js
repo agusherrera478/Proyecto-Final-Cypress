@@ -2,7 +2,6 @@ import user from '../fixtures/user.json'
 import url from '../fixtures/url.json'
 const pageHome = require('../support/page_objects/pageHome')
 const componentNav = require('../support/page_objects/componentNav')
-//A PARTIR DE ACA AGREGE YO AGUSTINA: para completar el caso 1
 import checkoutData from '../fixtures/checkout.json'
 const pageCart = require('../support/page_objects/pageCart')
 const pageCheckout = require('../support/page_objects/pageCheckout')
@@ -27,7 +26,6 @@ describe('Casos de prueba de FRONT', () => {
     pageHome.isAddedToCartMessageVisible()
     componentNav.validationNumberCartBadge('1')
     componentNav.clickCartIcon()
-//DESDE ACÁ: COMPLETADO POR AGUSTINA (la profe dejó el caso hasta el click en el carrito)
     pageCart.isBookTitleVisible('Harry Potter and the Chamber of Secrets')
     pageCart.clickCheckoutButton()
     cy.url().should('include', url.checkout)
@@ -75,12 +73,6 @@ describe('Casos de prueba de FRONT', () => {
 
   
   it('Título caso de prueba 3 | Nombre Alumno', () => {
-  })
-
-  it('Título caso de prueba 4 | Nombre Alumno', () => {
-  })
-
-  it('Título caso de prueba 5 | Nombre Alumno', () => {
   })
 
   //it.only ejecutar solo ese caso de prueba
