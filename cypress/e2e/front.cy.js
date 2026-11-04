@@ -102,14 +102,6 @@ describe('Casos de prueba de FRONT', () => {
   })
 // ===== FIN CASO PROPIO: SALOME NAVARRO BENITEZ
 
-
-  it('Título caso de prueba 4 | Nombre Alumno', () => {
-  })
-
-  it('Título caso de prueba 5 | Nombre Alumno', () => {
-  })
-
-  //it.only ejecutar solo ese caso de prueba
   //it.skip no ejecuta ese caso de prueba
   
 })
