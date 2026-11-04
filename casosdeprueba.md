@@ -7,8 +7,8 @@ Documentación de todos los casos de prueba del proyecto, en un solo archivo.
 | 1 | FE | Comprar carrito exitosamente y visualizar orden de compra | Profesora | `cypress/e2e/front.cy.js` |
 | 2 | API | Comprar carrito exitosamente | Profesora | `cypress/e2e/api.cy.js` |
 | 3 | API | Error al comprar carrito sin token | Profesora | `cypress/e2e/api.cy.js` |
-| 4 | API | Obtener órdenes de compra exitosamente | Agustina Herrera | `cypress/e2e/api.cy.js` |
-| 5 | API | Error al obtener órdenes de compra sin token | Agustina Herrera | `cypress/e2e/api.cy.js` |
+| 4 | API | Registrar un usuario nuevo exitosamente | Agustina Herrera | `cypress/e2e/api.cy.js` |
+| 5 | API | Error al registrar un usuario con contraseñas que no coinciden | Agustina Herrera | `cypress/e2e/api.cy.js` |
 | 6 | FE | Agregar un libro a favoritos y visualizar el contador | Agustina Herrera | `cypress/e2e/front.cy.js` |
 | 7 | API | Obtener un libro por id exitosamente | Augusto Meyer | `cypress/e2e/api.cy.js` |
 | 8 | API | Error al obtener un libro con id inexistente | Augusto Meyer | `cypress/e2e/api.cy.js` |
@@ -136,57 +136,72 @@ Documentación de todos los casos de prueba del proyecto, en un solo archivo.
 
 ## Caso de prueba 4
 
-**Título**: API | Obtener órdenes de compra exitosamente | Agustina Herrera
+**Título**: API | Registrar un usuario nuevo exitosamente | Agustina Herrera
 
-**Descripción**: El objetivo de este test es verificar que un usuario autenticado pueda consultar sus órdenes de compra por API.
+**Descripción**: El objetivo de este test es verificar que se pueda registrar un usuario nuevo por API cuando los datos son válidos.
 
 **Precondiciones**:
-- Tener un usuario registrado (UserId) y un token JWT válido.
+- Usar un nombre de usuario que no esté registrado.
 
-**Método**: GET
+**Método**: POST
 
-**URL**: https://app.bookdb.online/api/Order/{userId}
+**URL**: https://app.bookdb.online/api/User
 
-**Headers**:
-```
-authorization: Bearer <token válido>
+**Body**:
+```json
+{
+  "firstName": "Prueba",
+  "lastName": "Cypress",
+  "username": "cypress<número único>",
+  "password": "Abc@12345",
+  "confirmPassword": "Abc@12345",
+  "gender": "Female"
+}
 ```
 
 | Pasos | Resultado esperado |
 |---|---|
-| 1. Enviar el pedido GET a `/api/Order/{userId}` con el token válido en el header `authorization` | El endpoint responde **200** |
+| 1. Enviar el pedido POST a `/api/User` con los datos del body  | El endpoint responde **200** |
 
 **Respuesta del endpoint**: 200
 
-**Automatización**: `cypress/e2e/api.cy.js` → `it('API | Obtener órdenes de compra exitosamente | Agustina Herrera')`
+**Automatización**: `cypress/e2e/api.cy.js` → `it('API | Registrar un usuario nuevo exitosamente | Agustina Herrera')` (datos base en `cypress/fixtures/registro.json`)
 
 ---
 
 ## Caso de prueba 5
 
-**Título**: API | Error al obtener órdenes de compra sin token | Agustina Herrera
+**Título**: API | Error al registrar un usuario con contraseñas que no coinciden | Agustina Herrera
 
-**Descripción**: El objetivo de este test es verificar que el endpoint de órdenes de compra valide la autenticación y devuelva un error cuando no se envía el token JWT Bearer.
+**Descripción**: El objetivo de este test es verificar que el endpoint de registro valide los datos y devuelva un error cuando la confirmación de la contraseña no coincide con la contraseña.
 
 **Precondiciones**:
-- Tener un UserId de un usuario registrado.
+- Usar un nombre de usuario que no esté registrado.
 
-**Método**: GET
+**Método**: POST
 
-**URL**: https://app.bookdb.online/api/Order/{userId}
+**URL**: https://app.bookdb.online/api/User
 
-**Headers**:
-```
-authorization: (vacío)
+**Body**:
+```json
+{
+  "firstName": "Prueba",
+  "lastName": "Cypress",
+  "username": "cypress<número único>",
+  "password": "Abc@12345",
+  "confirmPassword": "Otra@12345",
+  "gender": "Female"
+}
 ```
 
 | Pasos | Resultado esperado |
 |---|---|
-| 1. Enviar el pedido GET a `/api/Order/{userId}` sin token | El endpoint responde **401 Unauthorized** |
+| 1. Enviar el pedido POST a `/api/User` con `confirmPassword` distinto de `password` | El endpoint responde **400 Bad Request** |
 
-**Respuesta del endpoint**: 401
+**Respuesta del endpoint**: 400
 
-**Automatización**: `cypress/e2e/api.cy.js` → `it('API | Error al obtener órdenes de compra sin token | Agustina Herrera')`
+**Automatización**: `cypress/e2e/api.cy.js` → `it('API | Error al registrar un usuario con contraseñas que no coinciden | Agustina Herrera')` (datos base en `cypress/fixtures/registro.json`)
+
 
 ---
 
