@@ -143,3 +143,40 @@ Cypress.Commands.add('getAccountAugusto', () => {
     })
 })
 // ===== FIN AGREGADO POR AUGUSTO MEYER
+
+// ===== DESDE ACÁ: AGREGADO POR SALOME NAVARRO BENITEZ
+Cypress.Commands.add('addToCartAPI', (userID, bookId, token) => {
+    cy.request({
+        method: 'POST',
+        url: `https://app.bookdb.online/api/shoppingcart/addToCart/${userID}/${bookId}`,
+        headers: {
+            accept: 'application/json',
+            'content-type': 'application/json',
+            authorization: token
+        }
+    }).then((response) => {
+        expect(response.status).to.eq(200);
+    });
+});
+
+// Renombrado (antes postLoginAPI) porque ya existía un postLoginAPI de Augusto
+Cypress.Commands.add('postLoginSalomeAPI', (name, password, codeResponse) => {
+    cy.request({
+        method: 'POST',
+        url: `https://app.bookdb.online/api/login`,
+        failOnStatusCode: false,
+        headers: {
+            accept: 'application/json',
+            'content-type': 'application/json',
+            authorization: ''
+        },
+        body: {
+            "Username": name,
+            "password": password,
+        }
+    }).then((response) => {
+        expect(response.status).to.eq(codeResponse);
+    })
+})
+// ===== FIN AGREGADO POR SALOME NAVARRO BENITEZ
+

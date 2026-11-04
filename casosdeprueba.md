@@ -13,6 +13,9 @@ Documentación de todos los casos de prueba del proyecto, en un solo archivo.
 | 7 | API | Obtener un libro por id exitosamente | Augusto Meyer | `cypress/e2e/api.cy.js` |
 | 8 | API | Error al obtener un libro con id inexistente | Augusto Meyer | `cypress/e2e/api.cy.js` |
 | 9 | FE | Filtrar libros por categoría | Augusto Meyer | `cypress/e2e/front.cy.js` |
+| 10 | API | Iniciar sesión exitosamente | Salomé Navarro Benítez | `cypress/e2e/api.cy.js` |
+| 11 | API | Error al iniciar sesión con contraseña incorrecta | Salomé Navarro Benítez | `cypress/e2e/api.cy.js` |
+| 12 | FE | Eliminar un producto individual del carrito de compras | Salomé Navarro Benítez | `cypress/e2e/front.cy.js` |
 
 ---
 
@@ -291,3 +294,86 @@ Documentación de todos los casos de prueba del proyecto, en un solo archivo.
 **Automatización**: `cypress/e2e/front.cy.js` → `it('Filtrar libros por categoría | Augusto Meyer')` (datos en `cypress/fixtures/bookAugusto.json`)
 
 > Nota: el usuario se obtiene con `cy.getAccountAugusto`, que intenta iniciar sesión por API con la cuenta principal de `cypress/fixtures/userAugusto.json` y, si falla, usa la cuenta de respaldo.
+
+---
+
+## Caso de prueba 10
+
+**Título**: API | Iniciar sesión exitosamente | Salomé Navarro Benítez
+
+**Descripción**: El objetivo de este test es verificar que un usuario registrado pueda iniciar sesión por API con credenciales válidas.
+
+**Precondiciones**:
+- Tener un usuario registrado.
+
+**Método**: POST
+
+**URL**: https://app.bookdb.online/api/login
+
+**Body**:
+```json
+{
+  "Username": "<usuario>",
+  "password": "<contraseña válida>"
+}
+```
+
+| Pasos | Resultado esperado |
+|---|---|
+| 1. Enviar el pedido POST a `/api/login` con usuario y contraseña válidos | El endpoint responde **200** |
+
+**Respuesta del endpoint**: 200
+
+**Automatización**: `cypress/e2e/api.cy.js` → `it('API | Iniciar sesion exitosamente | Salome Navarro Benitez')` (datos en `cypress/fixtures/userSalome.json`)
+
+---
+
+## Caso de prueba 11
+
+**Título**: API | Error al iniciar sesión con contraseña incorrecta | Salomé Navarro Benítez
+
+**Descripción**: El objetivo de este test es verificar que el endpoint de login rechace el inicio de sesión cuando la contraseña es incorrecta.
+
+**Precondiciones**:
+- Tener un usuario registrado.
+
+**Método**: POST
+
+**URL**: https://app.bookdb.online/api/login
+
+**Body**:
+```json
+{
+  "Username": "<usuario>",
+  "password": "<contraseña incorrecta>"
+}
+```
+
+| Pasos | Resultado esperado |
+|---|---|
+| 1. Enviar el pedido POST a `/api/login` con el usuario correcto y una contraseña incorrecta | El endpoint responde **401 Unauthorized** |
+
+**Respuesta del endpoint**: 401
+
+**Automatización**: `cypress/e2e/api.cy.js` → `it('API | Error al iniciar sesion con contraseña incorrecta | Salome Navarro Benitez')` (datos en `cypress/fixtures/userSalome.json`)
+
+---
+
+## Caso de prueba 12
+
+**Título**: Eliminar un producto individual del carrito de compras | Salomé Navarro Benítez
+
+**Descripción**: El objetivo de este test es verificar que se pueda eliminar un solo libro del carrito sin afectar a los demás.
+
+**Precondiciones**:
+- Tener un usuario registrado con al menos 2 libros en el carrito.
+
+| Pasos | Resultado esperado |
+|---|---|
+| 1. Iniciar sesión en https://app.bookdb.online/login | Se redirige al home |
+| 2. Hacer clic en el icono del carrito | Se redirige a `/shopping-cart`<br>El contador del carrito muestra 2 o más |
+| 3. Hacer clic en el botón de eliminar del primer libro | Se visualiza el toast "Book removed from cart"<br>Queda 1 libro en el carrito |
+
+**Automatización**: `cypress/e2e/front.cy.js` → `it('Eliminar un producto individual del carrito de compras | Salome Navarro Benitez')` (datos en `cypress/fixtures/userSalome.json`)
+
+> Nota: para cumplir la precondición, el test vacía el carrito por API (`cy.deleteCartAPI`) y agrega los libros 4 y 2 (`cy.addToCartAPI`).

@@ -3,6 +3,9 @@ import user from '../fixtures/user.json'
 import book from '../fixtures/bookAugusto.json'
 // AGREGADO POR AGUSTINA
 import registro from '../fixtures/registro.json'
+// AGREGADO POR SALOME
+import userSalome from '../fixtures/userSalome.json'
+
 
 describe('Casos de prueba de APIs', () => {
 
@@ -40,6 +43,16 @@ describe('Casos de prueba de APIs', () => {
         cy.getBookAPI(book.inexistente.bookId, 404)
     })
     // ===== FIN CASOS PROPIOS: AUGUSTO MEYER
+
+        // ===== CASOS PROPIOS: SALOME NAVARRO BENITEZ
+    it('API | Iniciar sesion exitosamente | Salome Navarro Benitez', () => {
+        cy.postLoginSalomeAPI(userSalome.name, userSalome.password, 200);
+    })
+
+    it('API | Error al iniciar sesion con contraseña incorrecta | Salome Navarro Benitez', () => {
+        cy.postLoginSalomeAPI(userSalome.name, 'Navarro12', 401);
+    })
+    // ===== FIN CASOS PROPIOS: SALOME NAVARRO BENITEZ
 
 })
 

@@ -9,6 +9,9 @@ const pageOrders = require('../support/page_objects/pageOrders')
 // AGREGADO POR AUGUSTO MEYER
 import book from '../fixtures/bookAugusto.json'
 const componentFilter = require('../support/page_objects/componentFilter')
+// AGREGADO POR SALOME
+import userSalome from '../fixtures/userSalome.json'
+
 
 
 
@@ -72,10 +75,31 @@ describe('Casos de prueba de FRONT', () => {
 // ===== FIN CASO PROPIO: AUGUSTO MEYER
 
   
-  it('Título caso de prueba 3 | Nombre Alumno', () => {
-  })
+  // ===== CASO PROPIO: SALOME NAVARRO BENITEZ
+  it('Eliminar un producto individual del carrito de compras | Salome Navarro Benitez', () => {
 
-  //it.only ejecutar solo ese caso de prueba
+    cy.visit(url.login)
+    cy.login(userSalome.name, userSalome.password);
+    cy.deleteCartAPI(userSalome.userID);
+
+    cy.addToCartAPI(userSalome.userID, 4, userSalome.token);
+    cy.addToCartAPI(userSalome.userID, 2, userSalome.token);
+    cy.wait(1500)
+
+    componentNav.clickCartIcon();
+
+    componentNav.verifyCartBadgeAtLeast(2);
+    cy.url().should('include', url.cart)
+
+    pageCart.deleteFirstBook();
+    pageCart.verifySuccessToast();
+
+    cy.wait(1500)
+    pageCart.verifyCartRowsCount(1);
+
+  })
+// ===== FIN CASO PROPIO: SALOME NAVARRO BENITEZ
+
   //it.skip no ejecuta ese caso de prueba
   
 })
