@@ -1,4 +1,4 @@
-# Proyecto Final Cypress
+# Proyecto Final Cypress Grupo 5
 
 Pruebas automatizadas con Cypress sobre https://app.bookdb.online. El detalle de cada caso está en [`casosdeprueba.md`](casosdeprueba.md).
 
