@@ -299,30 +299,30 @@ Documentación de todos los casos de prueba del proyecto, en un solo archivo.
 
 ## Caso de prueba 10
 
+> Caso redactado por Salomé Navarro Benítez.
+
 **Título**: API | Iniciar sesión exitosamente | Salomé Navarro Benítez
 
-**Descripción**: El objetivo de este test es verificar que un usuario registrado pueda iniciar sesión por API con credenciales válidas.
+**Descripción**: El objetivo de este test es verificar que un usuario registrado pueda autenticarse correctamente en el sistema enviando credenciales válidas a través de la API y obtenga una respuesta exitosa junto con el token de acceso.
 
 **Precondiciones**:
+
 - Tener un usuario registrado.
-
-**Método**: POST
-
-**URL**: https://app.bookdb.online/api/login
-
-**Body**:
-```json
-{
-  "Username": "<usuario>",
-  "password": "<contraseña válida>"
-}
-```
 
 | Pasos | Resultado esperado |
 |---|---|
-| 1. Enviar el pedido POST a `/api/login` con usuario y contraseña válidos | El endpoint responde **200** |
+| Realizar una solicitud: | Respuesta del Endpoint:<br>200 |
 
-**Respuesta del endpoint**: 200
+- Método: POST
+- URL: https://app.bookdb.online/api/login
+- Body:
+
+```json
+{
+"Username": "salomenavarro",
+"password": "Navarro123"
+}
+```
 
 **Automatización**: `cypress/e2e/api.cy.js` → `it('API | Iniciar sesion exitosamente | Salome Navarro Benitez')` (datos en `cypress/fixtures/userSalome.json`)
 
@@ -330,30 +330,31 @@ Documentación de todos los casos de prueba del proyecto, en un solo archivo.
 
 ## Caso de prueba 11
 
+> Caso redactado por Salomé Navarro Benítez.
+
 **Título**: API | Error al iniciar sesión con contraseña incorrecta | Salomé Navarro Benítez
 
-**Descripción**: El objetivo de este test es verificar que el endpoint de login rechace el inicio de sesión cuando la contraseña es incorrecta.
+**Descripción**: El objetivo de este test es verificar que el sistema valide correctamente las credenciales y rechace el acceso devolviendo un código de error cuando se intenta iniciar sesión con una contraseña incorrecta o inválida.
 
 **Precondiciones**:
+
 - Tener un usuario registrado.
-
-**Método**: POST
-
-**URL**: https://app.bookdb.online/api/login
-
-**Body**:
-```json
-{
-  "Username": "<usuario>",
-  "password": "<contraseña incorrecta>"
-}
-```
+- Conocer el usuario, pero utilizar una contraseña errónea para la solicitud.
 
 | Pasos | Resultado esperado |
 |---|---|
-| 1. Enviar el pedido POST a `/api/login` con el usuario correcto y una contraseña incorrecta | El endpoint responde **401 Unauthorized** |
+| Realizar una solicitud con una contraseña incorrecta: | Respuesta del Endpoint:<br>Error 401 unauthorized |
 
-**Respuesta del endpoint**: 401
+- Método: POST
+- URL: https://app.bookdb.online/api/login
+- Body:
+
+```json
+{
+"Username": "salomenavarro",
+"password": "Navarro12"
+}
+```
 
 **Automatización**: `cypress/e2e/api.cy.js` → `it('API | Error al iniciar sesion con contraseña incorrecta | Salome Navarro Benitez')` (datos en `cypress/fixtures/userSalome.json`)
 
@@ -361,19 +362,23 @@ Documentación de todos los casos de prueba del proyecto, en un solo archivo.
 
 ## Caso de prueba 12
 
+> Caso redactado por Salomé Navarro Benítez.
+
 **Título**: Eliminar un producto individual del carrito de compras | Salomé Navarro Benítez
 
-**Descripción**: El objetivo de este test es verificar que se pueda eliminar un solo libro del carrito sin afectar a los demás.
+**Descripción**: El objetivo de este test es verificar que el usuario pueda eliminar un libro del carrito de forma individual y que el carrito se actualice correctamente.
 
 **Precondiciones**:
-- Tener un usuario registrado con al menos 2 libros en el carrito.
+
+- Contar con un usuario registrado.
+- El carrito de compras se inicia limpio y luego se precargan al menos dos libros para cumplir con el estado inicial del escenario.
 
 | Pasos | Resultado esperado |
 |---|---|
-| 1. Iniciar sesión en https://app.bookdb.online/login | Se redirige al home |
-| 2. Hacer clic en el icono del carrito | Se redirige a `/shopping-cart`<br>El contador del carrito muestra 2 o más |
-| 3. Hacer clic en el botón de eliminar del primer libro | Se visualiza el toast "Book removed from cart"<br>Queda 1 libro en el carrito |
+| Click en el icono del carrito | Se redirige al carrito<br>Se visualizan los dos libros añadidos |
+| Click en el botón de eliminar sobre el primer libro | Se visualiza el toast 'Book removed from cart'<br>Se elimina el libro seleccionado del carrito |
+| Verificar el contenido restante en la pantalla del carrito de compras | Se visualiza que el primer libro seleccionado fue eliminado exitosamente, el segundo libro permanece en el listado y el monto total del carrito se recalcula de forma correcta |
 
 **Automatización**: `cypress/e2e/front.cy.js` → `it('Eliminar un producto individual del carrito de compras | Salome Navarro Benitez')` (datos en `cypress/fixtures/userSalome.json`)
 
-> Nota: para cumplir la precondición, el test vacía el carrito por API (`cy.deleteCartAPI`) y agrega los libros 4 y 2 (`cy.addToCartAPI`).
+> Nota: para cumplir la precondición, el test vacía el carrito por API (`cy.deleteCartAPI`) y agrega los libros 4 y 2 (`cy.addToCartAPI`). La automatización verifica que el contador del carrito muestre 2 o más, que aparezca el toast y que quede 1 libro en el listado; el recálculo del monto total no se verifica automáticamente.
