@@ -1,6 +1,8 @@
 import user from '../fixtures/user.json'
 // AGREGADO POR AUGUSTO MEYER
 import book from '../fixtures/bookAugusto.json'
+// AGREGADO POR AGUSTINA
+import registro from '../fixtures/registro.json'
 
 describe('Casos de prueba de APIs', () => {
 
@@ -13,12 +15,12 @@ describe('Casos de prueba de APIs', () => {
     })
 
      // ===== CASOS PROPIOS: AGUSTINA
-    it('API | Obtener órdenes de compra exitosamente | Agustina Herrera', () => {
-        cy.getOrdersAPI(user.userId, user.token, 200)
+        it('API | Registrar un usuario nuevo exitosamente | Agustina Herrera', () => {
+        cy.postUserAPI({ ...registro, username: `cypress${Date.now()}` }, 200)
     })
 
-    it('API | Error al obtener órdenes de compra sin token | Agustina Herrera', () => {
-        cy.getOrdersAPI(user.userId, '', 401)
+    it('API | Error al registrar un usuario con contraseñas que no coinciden | Agustina Herrera', () => {
+        cy.postUserAPI({ ...registro, username: `cypress${Date.now()}`, confirmPassword: 'Otra@12345' }, 400)
     })
     // ===== FIN CASOS PROPIOS: AGUSTINA
 

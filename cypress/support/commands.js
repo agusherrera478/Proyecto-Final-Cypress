@@ -80,16 +80,16 @@ Cypress.Commands.add('deleteWishlistAPI', (userId, token) => {
     })
 })
 
-Cypress.Commands.add('getOrdersAPI', (userId, token, codeResponse) => {
+Cypress.Commands.add('postUserAPI', (body, codeResponse) => {
     cy.request({
-        method: 'GET',
-        url: `https://app.bookdb.online/api/Order/${userId}`,
+        method: 'POST',
+        url: 'https://app.bookdb.online/api/User',
         failOnStatusCode: false,
         headers: {
             accept: 'application/json',
-            'content-type': 'application/json',
-            authorization: token
-        }
+            'content-type': 'application/json'
+        },
+        body: body
     }).then((response) => {
         expect(response.status).to.eq(codeResponse)
     })
