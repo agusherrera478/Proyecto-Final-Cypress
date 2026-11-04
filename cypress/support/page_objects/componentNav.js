@@ -8,5 +8,15 @@ class componentNav {
     clickCartIcon() {// ===== REFACTOR POM: antes estaba suelto en el caso 1 de front.cy.js
         cy.get('.mdc-icon-button.mat-mdc-icon-button.mat-mdc-button-base.mat-unthemed').contains('shopping_cart').click()
     }
+    // ===== AGREGADO POR SALOME
+    cartBadge() {
+        return cy.get('#mat-badge-content-0');
+    }
+    verifyCartBadgeAtLeast(count) {
+        this.cartBadge().should(($badge) => {
+            expect(parseInt($badge.text().trim())).to.be.at.least(count);
+        });
+    }
+    // ===== FIN AGREGADO POR SALOME
 } 
 module.exports = new componentNav(); 
